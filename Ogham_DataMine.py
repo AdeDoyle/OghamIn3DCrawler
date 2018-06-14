@@ -148,10 +148,16 @@ def datamine(url):
                         if transtring == "":
                             transtring = "No Translation Available"
                         stonedata.append(transtring)
-                    """Get 3D obj file"""
+                    """Finds if 3D View is available on the website."""
+                    if "3D View" in stonehtml:
+                        threedstring = "3D View: Yes"
+                    else:
+                        threedstring = "3D View: No"
+                    stonedata.append(threedstring)
+                    stonedata.append(descrlink)
         datalist.append(stonedata)
     return datalist
 
 
-# for list in datamine("https://ogham.celt.dias.ie/menu.php?lang=en&menuitem=30"):
-#     print(list)
+for list in datamine("https://ogham.celt.dias.ie/menu.php?lang=en&menuitem=30"):
+    print(list)
