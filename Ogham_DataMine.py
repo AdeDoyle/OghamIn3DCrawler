@@ -55,17 +55,21 @@ def datamine(url):
                             changespot = namestring.find("       ")
                             namestring = namestring[:changespot]
                         if "    " in namestring:
-                            changespot = namestring.find("    ")
-                            namestring = namestring[:changespot] + " " + namestring[changespot + 4:]
+                            spacescount = namestring.count("    ")
+                            for i in range(0, spacescount):
+                                changespot = namestring.find("    ")
+                                namestring = namestring[:changespot] + " " + namestring[changespot + 4:]
                         if "  " in namestring:
-                            changespot = namestring.find("  ")
-                            namestring = namestring[:changespot] + " " + namestring[changespot + 2:]
-                        if namestring[-2:] == "  ":
-                            namestring = namestring[:-2]
-                        if namestring[-1:] == " ":
-                            namestring = namestring[:-1]
-                        if namestring[-1:] == ".":
-                            namestring = namestring[:-1]
+                            spacescount = namestring.count("  ")
+                            for i in range(0, spacescount):
+                                spaceplace = namestring.find("  ")
+                                namestring = namestring[:spaceplace] + " " + namestring[spaceplace + 2:]
+                        if "  " in namestring:
+                            spacescount = namestring.count("  ")
+                            for i in range(0, spacescount):
+                                spaceplace = namestring.find("  ")
+                                namestring = namestring[:spaceplace] + " " + namestring[spaceplace + 2:]
+                        namestring = namestring.strip(" .")
                         if '<span class="italic">' in namestring:
                             changespot = namestring.find('<span class="italic">')
                             namestring = namestring[:changespot] + namestring[changespot + 21:]
@@ -87,40 +91,13 @@ def datamine(url):
                         searchstring = stonehtml[transcstart + 14:]
                         newstart = searchstring.find("Transcription")
                         searchstring = searchstring[newstart:]
-                        transcend = searchstring.find("</div")
+                        transcend = searchstring.find("Translation")
                         transcstring = searchstring[:transcend]
-                        newstart = transcstring.find("div")
-                        transcstring = transcstring[newstart:]
-                        newstart = transcstring.find(">")
-                        transcstring = transcstring[newstart + 1:]
-                        if transcstring[0] == "\n":
-                            transcstring = transcstring[1:]
-                        if "<a href=" in transcstring:
-                            transcstring = bleach.clean(transcstring, tags=[], strip=True)
-                        if "<a id=" in transcstring:
-                            refstart = transcstring.find("<a id=")
-                            refend = (transcstring.find("</a>") + 4)
-                            transcstring = transcstring[:refstart] + transcstring[refend:]
-                        if '<br id="al">' in transcstring:
-                            bridcount = transcstring.count('<br id="al">')
-                            for i in range(0, bridcount):
-                                refstart = transcstring.find('<br id="al">')
-                                transcstring = transcstring[:refstart] + transcstring[refstart + 12:]
-                        if '<br id="al2">' in transcstring:
-                            bridcount = transcstring.count('<br id="al2">')
-                            for i in range(0, bridcount):
-                                refstart = transcstring.find('<br id="al2">')
-                                transcstring = transcstring[:refstart] + transcstring[refstart + 13:]
-                        if '<span class="linenumber">' in transcstring:
-                            spinclasscount = transcstring.count('<span class="linenumber">')
-                            for i in range(0, spinclasscount):
-                                refstart = transcstring.find('<span class="linenumber">')
-                                transcstring = transcstring[:refstart] + transcstring[refstart + 25:]
-                        if "</span>" in transcstring:
-                            linkcount = transcstring.count("/span")
-                            for i in range(0, linkcount):
-                                linkend = transcstring.find("</span>")
-                                transcstring = transcstring[:linkend] + transcstring[linkend + 7:]
+                        transcstring = bleach.clean(transcstring, tags=[], strip=True)
+                        transcstring = transcstring[13:]
+                        transcstring = transcstring.strip()
+                        if transcstring == "":
+                            transcstring = "No Transcription Available"
                         if "\xa0" in transcstring:
                             spacenum = transcstring.count("\xa0")
                             for i in range(0, spacenum):
@@ -131,29 +108,50 @@ def datamine(url):
                             for i in range(0, dotnum):
                                 dotplace = transcstring.find(" ̣")
                                 transcstring = transcstring[:dotplace] + "." + transcstring[dotplace + 2:]
+                        if "    " in transcstring:
+                            spacescount = transcstring.count("    ")
+                            for i in range(0, spacescount):
+                                spaceplace = transcstring.find("    ")
+                                transcstring = transcstring[:spaceplace] + " " + transcstring[spaceplace + 4:]
+                        if "   " in transcstring:
+                            spacescount = transcstring.count("   ")
+                            for i in range(0, spacescount):
+                                spaceplace = transcstring.find("   ")
+                                transcstring = transcstring[:spaceplace] + " " + transcstring[spaceplace + 3:]
                         if "  " in transcstring:
                             spacescount = transcstring.count("  ")
                             for i in range(0, spacescount):
                                 spaceplace = transcstring.find("  ")
                                 transcstring = transcstring[:spaceplace] + " " + transcstring[spaceplace + 2:]
-                        if transcstring[0] == " ":
-                            transcstring = transcstring[1:]
-                            try:
-                                if transcstring[0] == " ":
-                                    transcstring = transcstring[1:]
-                            except IndexError:
-                                pass
-                        try:
-                            if transcstring[-1] == " ":
-                                transcstring = transcstring[:-1]
-                        except IndexError:
-                            pass
                         stonedata.append(transcstring)
-                    """Get translation"""
+                    """Gets translation, if available. Removes whitespace and html code."""
+                    if "Translation" in stonehtml:
+                        transtart = stonehtml.find("Translation")
+                        searchstring = stonehtml[transtart + 11:]
+                        newstart = searchstring.find("Translation")
+                        searchstring = searchstring[newstart:]
+                        transend = searchstring.find("Commentary")
+                        transtring = searchstring[:transend]
+                        transtring = bleach.clean(transtring, tags=[], strip=True)
+                        transtring = transtring[11:]
+                        transtring = transtring.strip()
+                        if "''" in transtring:
+                            quotemarkcount = transtring.count("''")
+                            for i in range(0, quotemarkcount):
+                                quotemarkplace = transtring.find("''")
+                                transtring = transtring[:quotemarkplace] + "'" + transtring[quotemarkplace + 2:]
+                        if "  " in transtring:
+                            spacescount = transtring.count("  ")
+                            for i in range(0, spacescount):
+                                spaceplace = transtring.find("  ")
+                                transtring = transtring[:spaceplace] + " " + transtring[spaceplace + 2:]
+                        if transtring == "":
+                            transtring = "No Translation Available"
+                        stonedata.append(transtring)
                     """Get 3D obj file"""
         datalist.append(stonedata)
     return datalist
 
 
-for list in datamine("https://ogham.celt.dias.ie/menu.php?lang=en&menuitem=30"):
-    print(list)
+# for list in datamine("https://ogham.celt.dias.ie/menu.php?lang=en&menuitem=30"):
+#     print(list)
