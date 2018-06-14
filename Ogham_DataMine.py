@@ -159,5 +159,5 @@ def datamine(url):
     return datalist
 
 
-for list in datamine("https://ogham.celt.dias.ie/menu.php?lang=en&menuitem=30"):
-    print(list)
+# for list in datamine("https://ogham.celt.dias.ie/menu.php?lang=en&menuitem=30"):
+#     print(list)
