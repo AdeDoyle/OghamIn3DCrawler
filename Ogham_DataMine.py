@@ -150,9 +150,9 @@ def datamine(url):
                         stonedata.append(transtring)
                     """Finds if 3D View is available on the website."""
                     if "3D View" in stonehtml:
-                        threedstring = "3D View: Yes"
+                        threedstring = "Yes"
                     else:
-                        threedstring = "3D View: No"
+                        threedstring = "No"
                     stonedata.append(threedstring)
                     stonedata.append(descrlink)
         datalist.append(stonedata)
