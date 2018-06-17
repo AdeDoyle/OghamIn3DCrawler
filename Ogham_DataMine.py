@@ -93,16 +93,31 @@ def datamine(url):
                         searchstring = searchstring[newstart:]
                         transcend = searchstring.find("Translation")
                         transcstring = searchstring[:transcend]
-                        transcstring = bleach.clean(transcstring, tags=[], strip=True)
+                        transcstring = bleach.clean(transcstring, tags=['br'], strip=True)
                         transcstring = transcstring[13:]
                         transcstring = transcstring.strip()
                         if transcstring == "":
                             transcstring = "No Transcription Available"
+                        if "<br>" in transcstring:
+                            linenum = transcstring.count("<br>")
+                            for i in range(0, linenum):
+                                linepoint = transcstring.find("<br>")
+                                transcstring = transcstring[:linepoint] + " " + transcstring[linepoint + 4:]
                         if "\xa0" in transcstring:
                             spacenum = transcstring.count("\xa0")
                             for i in range(0, spacenum):
                                 spacepoint = transcstring.find("\xa0")
                                 transcstring = transcstring[:spacepoint] + " " + transcstring[spacepoint + 1:]
+                        if "&lt;" in transcstring:
+                            tagnum = transcstring.count("&lt;")
+                            for i in range(0, tagnum):
+                                tagpoint = transcstring.find("&lt;")
+                                transcstring = transcstring[:tagpoint] + "<" + transcstring[tagpoint + 4:]
+                        if "&gt;" in transcstring:
+                            tagnum = transcstring.count("&gt;")
+                            for i in range(0, tagnum):
+                                tagpoint = transcstring.find("&gt;")
+                                transcstring = transcstring[:tagpoint] + ">" + transcstring[tagpoint + 4:]
                         if " ̣" in transcstring:
                             dotnum = transcstring.count(" ̣")
                             for i in range(0, dotnum):
