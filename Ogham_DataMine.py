@@ -108,6 +108,11 @@ def datamine(url):
                             for i in range(0, spacenum):
                                 spacepoint = transcstring.find("\xa0")
                                 transcstring = transcstring[:spacepoint] + " " + transcstring[spacepoint + 1:]
+                        if "\n" in transcstring:
+                            spacenum = transcstring.count("\n")
+                            for i in range(0, spacenum):
+                                spacepoint = transcstring.find("\n")
+                                transcstring = transcstring[:spacepoint] + " " + transcstring[spacepoint + 1:]
                         if "&lt;" in transcstring:
                             tagnum = transcstring.count("&lt;")
                             for i in range(0, tagnum):
@@ -123,6 +128,8 @@ def datamine(url):
                             for i in range(0, dotnum):
                                 dotplace = transcstring.find(" ̣")
                                 transcstring = transcstring[:dotplace] + "." + transcstring[dotplace + 2:]
+                        if transcstring[0] == "̣":
+                            transcstring = "." + transcstring[1:]
                         if "    " in transcstring:
                             spacescount = transcstring.count("    ")
                             for i in range(0, spacescount):
