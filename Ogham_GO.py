@@ -25,8 +25,8 @@ def findnth(string, character, n):
 
 def deanogham(string, alphabet=None):
     """Sets the available ogham characters in accordance with the type of ogham selected, orthodox as default"""
-    oghamdict = {" ": " ", "-": " ", "[": "[", "]": "]", "/": "/", ".": ".", "̣": "̣", ":": ":", "?": "?", "(": "(",
-                 ")": ")", "vac.": "vac.", "{": "{", "}": "}", "<": "<", ">": ">", "〚": "〚", "〛": "〛"}
+    oghamdict = {" ": " ", "-": " ", "[": "[", "]": "]", "/": "/", ".": ".", "̣": "̣", "?": "?", "(": "(", ")": ")",
+                 "vac.": "vac.", "{": "{", "}": "}", "<": "<", ">": ">", "〚": "〚", "〛": "〛"}
     if alphabet is None:
         alphabet = "orthodox"
     if alphabet != "scholastic":
