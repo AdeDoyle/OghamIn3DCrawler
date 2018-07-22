@@ -1,11 +1,12 @@
 """Goes to pages for each stone on the Ogham 3D website and collects data:
-   Stone Place, Roman Transcription, Translation, 3D View, Page Link
+   Stone Place, Ogham Transcription, Roman Transcription, Translation, 3D View, Page Link
    Opens current Ogham Data file and compares contents
    Any new stones' data on the site is added to a new .xls file"""
 
 from ReadXL import readXL
 from xlwt import Workbook
 from Ogham_DataMine import datamine
+from Ogham_GO import deanogham
 
 
 def updateData(url):
@@ -37,19 +38,23 @@ def updateSaveData(url):
     sheet.write(0, 9, "3D View?")
     sheet.write(0, 10, "URL")
     rownum = 0
-    blankcols = [1, 4, 5]
+    blankcols = [5]
     nocols = [3, 6, 8]
+    oghamcols = [1, 4]
     for list in updateData(url):
         rownum += 1
         colnum = 0
         listnum = 0
-        datalen = len(list) + len(blankcols) + len(nocols)
+        datalen = len(list) + len(blankcols) + len(nocols) + len(oghamcols)
         for i in range(0, datalen):
             if colnum in blankcols:
                 sheet.write(rownum, colnum, "")
                 colnum += 1
             elif colnum in nocols:
                 sheet.write(rownum, colnum, "No")
+                colnum += 1
+            elif colnum in oghamcols:
+                sheet.write(rownum, colnum, deanogham(list[1]))
                 colnum += 1
             else:
                 sheet.write(rownum, colnum, list[listnum])
