@@ -1,8 +1,10 @@
 # OghamIn3DCrawler
-Collects data about Ogham Stones recorded on the [Ogham3D](ogham.celt.dias.ie) website:
-Data collected - Site, Transcription, Suggested translation, Online 3D Model Available, URL.
-Automatic transliteration of the transcription is applied, and hence, an ogham transcription is created.
+Collects data about Ogham Stones recorded on the [Ogham3D](ogham.celt.dias.ie) website: Site, Transcription, Suggested translation, Online 3D Model Available, URL.
+
+Automatic transliteration of the Roman transcription is applied, and hence, an Ogham transcription is created.
+
 An Excel file is created containing all the data above, and allowing fields for manual assessments of transcriptions to be recorded.
+
 Further Excel files can be created containing the same data for new stones as they are added to the website.
 
 
