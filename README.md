@@ -10,7 +10,7 @@ Further Excel files can be created containing the same data for new stones as th
 
 ## Files Included
 
-1. Combine_Link.py - Creates URLs to new pages on [Ogham3D](https://ogham.celt.dias.ie/menu.php?lang=en&menuitem=30) by combining "https://ogham.celt.dias.ie" with hrefs for stones/sites.
+1. Combine_Link.py - Creates URLs to new pages on [Ogham3D](https://ogham.celt.dias.ie/menu.php?lang=en&menuitem=30) by combining "ogham.celt.dias.ie" with hrefs for stones/sites.
 
 2. Findrefs.py - Finds hrefs for all links on a given web page.
 
