@@ -1,5 +1,5 @@
 """Goes to pages for each stone on the Ogham 3D website and collects data:
-   Transcription, Translation, 3D File/Link, Image"""
+   Site, Transcription, Translation, 3D Model Available Online, URL"""
 
 from Site_To_Stone import sitetostone
 from Plain_Text import plaintext

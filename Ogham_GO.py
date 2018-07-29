@@ -1,4 +1,4 @@
-"""Takes regular text and renders it in either orthodox or scholastic Ogham.
+"""Takes Roman text and renders it in either orthodox or scholastic Ogham.
    This version especially for use reverse-transliterating the transcriptions on ogham.celt.dias.ie without losing
    metadata and diacritics present in the transcriptions."""
 

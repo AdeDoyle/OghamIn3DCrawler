@@ -44,7 +44,7 @@ def SaveData(url):
                 sheet.write(rownum, colnum, list[listnum])
                 colnum += 1
                 listnum += 1
-    wb.save("New Ogham Data.xls")
+    wb.save("Ogham Data.xls")
 
 
 SaveData("https://ogham.celt.dias.ie/menu.php?lang=en&menuitem=30")
